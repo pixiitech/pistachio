@@ -17,8 +17,10 @@ ActiveRecord::Schema.define(version: 2021_08_16_144752) do
     t.date "due_date", null: false
     t.decimal "amount", precision: 12, scale: 2, default: "0.0", null: false
     t.boolean "paid", default: false
+    t.integer "loan_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["loan_id"], name: "index_due_payments_on_loan_id"
   end
 
   create_table "loans", force: :cascade do |t|
@@ -41,8 +43,10 @@ ActiveRecord::Schema.define(version: 2021_08_16_144752) do
   end
 
   create_table "payments", force: :cascade do |t|
+    t.integer "loan_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["loan_id"], name: "index_payments_on_loan_id"
   end
 
   create_table "transactions", force: :cascade do |t|
@@ -53,8 +57,10 @@ ActiveRecord::Schema.define(version: 2021_08_16_144752) do
     t.decimal "fees_change", precision: 12, scale: 2, default: "0.0", null: false
     t.boolean "reversed", default: false
     t.boolean "reversal", default: false
+    t.integer "loan_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["loan_id"], name: "index_transactions_on_loan_id"
   end
 
 end

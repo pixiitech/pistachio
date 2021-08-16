@@ -9,6 +9,7 @@ class CreateTransactions < ActiveRecord::Migration[6.1]
       t.decimal :fees_change, default: 0, null: false, precision: 12, scale: 2
       t.boolean :reversed, default: false
       t.boolean :reversal, default: false
+      t.references :loan
       t.timestamps
     end
   end

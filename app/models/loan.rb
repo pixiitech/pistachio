@@ -3,9 +3,9 @@ class Loan < ApplicationRecord
   has_many :transactions
   has_many :due_payments
 
-  after_save :update_balances!
+  before_save :update_balances
 
-  default_scope :active
+  default_scope { active }
 
   scope :active, -> { where(archived_at: nil) }
 
@@ -31,5 +31,13 @@ class Loan < ApplicationRecord
   def update_balances!
     update_balances
     save
+  end
+
+  def total_balance
+    [
+      principal_balance,
+      interest_balance,
+      fees_balance
+    ].sum
   end
 end
